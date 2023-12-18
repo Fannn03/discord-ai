@@ -20,7 +20,8 @@ export default {
           {role: "user", content: message.content}
         ]
       })
-    
+
+      await message.channel.sendTyping();
       return await message.reply(completion.choices[0].message.content as string);
     } catch (err: any) {
       if(err instanceof RateLimitError) {
