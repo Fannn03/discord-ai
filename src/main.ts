@@ -25,7 +25,6 @@ for (let event of eventsFolder) {
       client.once(name, (...args: any) => execute(...args));
     } else {
       client.on(name, (...args: any) => execute(...args));
-      client.on('messageCreate', (message: Message) => console.log(message))
     }
   })
 }
