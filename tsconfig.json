@@ -6,7 +6,8 @@
     "noImplicitAny": false,
     "strict": true,
     "target": "ES6",
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "esModuleInterop": true
   },
   "ts-node": {
     "esm": true,
