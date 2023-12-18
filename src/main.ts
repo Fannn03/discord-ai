@@ -1,14 +1,15 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, Message } from "discord.js";
 import path from "path";
 import fs from "fs";
 import 'dotenv/config';
-import { eventInterface } from "domains/models/event";
+import { eventDefaultInterface } from "domains/models/event";
 
 const client: Client = new Client({
   intents: [
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.Guilds
   ]
 });
 
@@ -17,13 +18,14 @@ const eventsFolder = fs.readdirSync(eventPath);
 
 for (let event of eventsFolder) {
   const file = path.join(eventPath, event);
-  import(file).then((data: eventInterface) => {
+  import(file).then((data: eventDefaultInterface) => {
     const { name, once, execute } = data.default;
-
+    
     if(once) {
-      client.once(name, (client: Client, ...args: any[]) => execute(client, ...args));
+      client.once(name, (...args: any) => execute(...args));
     } else {
-      client.on(name, (client: Client, ...args: any[]) => execute(client, ...args));
+      client.on(name, (...args: any) => execute(...args));
+      client.on('messageCreate', (message: Message) => console.log(message))
     }
   })
 }
