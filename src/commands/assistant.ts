@@ -17,6 +17,7 @@ export default {
       .setTitle("ChatAi Assistant")
       .setDescription(text)
       .setTimestamp()
+      .setColor("Random")
       .setThumbnail(message.guild?.iconURL() as string)
 
     const createAssistant = new ButtonBuilder()
