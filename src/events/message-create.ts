@@ -1,8 +1,8 @@
 import { Message } from "discord.js";
 import { RateLimitError } from "openai";
-import { openAI } from "configs/openai";
-import { eventInterface } from "domains/models/event";
-import { MessageError } from "common/adapters/errors/message-error";
+import { openAI } from "@configs/openai";
+import { eventInterface } from "@domains/models/event";
+import { MessageError } from "@common/adapters/errors/message-error";
 
 export default {
   name: 'messageCreate',

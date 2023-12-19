@@ -1,8 +1,16 @@
-import { Client, GatewayIntentBits, Message } from "discord.js";
+import moduleAlias from "module-alias";
+moduleAlias.addAliases({
+  "@common": __dirname + "/common",
+  "@configs": __dirname + "/configs",
+  "@domains": __dirname + "/domains",
+});
+
+import 'module-alias/register';
+import { Client, GatewayIntentBits } from "discord.js";
 import path from "path";
 import fs from "fs";
 import 'dotenv/config';
-import { eventDefaultInterface } from "domains/models/event";
+import { eventDefaultInterface } from "@domains/models/event";
 
 const client: Client = new Client({
   intents: [

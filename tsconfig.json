@@ -2,12 +2,17 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./src",
     "noImplicitAny": false,
     "strict": true,
-    "target": "ES6",
+    "target": "ES2020",
     "module": "CommonJS",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@configs/*": ["configs/*"],
+      "@domains/*": ["domains/*"]
+    }
   },
   "ts-node": {
     "esm": true,
