@@ -11,6 +11,7 @@ import path from "path";
 import fs from "fs";
 import 'dotenv/config';
 import { eventDefaultInterface } from "@domains/models/event";
+import { commandDefaultInterface, commandInterface } from "@domains/models/command";
 
 const client: Client = new Client({
   intents: [
@@ -20,6 +21,8 @@ const client: Client = new Client({
     GatewayIntentBits.Guilds
   ]
 });
+
+export const clientCommands: commandInterface[] = [];
 
 const eventPath = path.join(__dirname, './events');
 const eventsFolder = fs.readdirSync(eventPath);
@@ -34,6 +37,24 @@ for (let event of eventsFolder) {
     } else {
       client.on(name, (...args: any) => execute(...args));
     }
+  })
+}
+
+const commandPath = path.join(__dirname, './commands');
+const commandsFolder = fs.readdirSync(commandPath);
+
+for (let command of commandsFolder) {
+  const file = path.join(commandPath, command);
+  import(file).then((data: commandDefaultInterface) => {
+    const { name, aliases, run } = data.default;
+
+    const payload = {
+      name: name,
+      aliases: aliases,
+      run: run
+    }
+
+    clientCommands.push(payload);
   })
 }
 
