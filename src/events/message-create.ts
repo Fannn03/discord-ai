@@ -3,12 +3,27 @@ import { RateLimitError } from "openai";
 import { openAI } from "@configs/openai";
 import { eventInterface } from "@domains/models/event";
 import { MessageError } from "@common/adapters/errors/message-error";
+import { clientCommands } from "main";
+import { commandInterface } from "@domains/models/command";
 
 export default {
   name: 'messageCreate',
   once: false,
   execute: async function (message: Message): Promise<void | Message | MessageError> {
     if(message.author.bot) return;
+
+    // listen command message
+    const prefix = process.env.PREFIX as string;
+    if(message.content.startsWith(prefix)) {
+      const args = message.content.slice(prefix.length).trim().split(' ');
+      const commandName = args.shift();
+      
+      const command: commandInterface | undefined = clientCommands.find((command: commandInterface) => commandName == command.name || command.aliases.includes(commandName as string));
+
+      if(command) return command.run(message, args);
+      else return new MessageError(message, "Command name not found");
+    }
+
     if(message.channelId !== "1186307613231689808") return;
     if(!message.content.length || message.content == " ") return new MessageError(message, "Message prompt cannot has empty or blank value!");
 
