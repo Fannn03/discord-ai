@@ -8,7 +8,8 @@ export default {
   name: 'messageCreate',
   once: false,
   execute: async function (message: Message): Promise<void | Message | MessageError> {
-    if(message.author.bot || message.channelId !== "1186307613231689808") return;
+    if(message.author.bot) return;
+    if(message.channelId !== "1186307613231689808") return;
     if(!message.content.length || message.content == " ") return new MessageError(message, "Message prompt cannot has empty or blank value!");
 
     try {
