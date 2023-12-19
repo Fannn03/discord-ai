@@ -5,6 +5,7 @@ import { eventInterface } from "@domains/models/event";
 import { MessageError } from "@common/adapters/errors/message-error";
 import { clientCommands } from "main";
 import { commandInterface } from "@domains/models/command";
+import { registerUser } from "services/users/register-service";
 
 export default {
   name: 'messageCreate',
@@ -12,12 +13,18 @@ export default {
   execute: async function (message: Message): Promise<void | Message | MessageError> {
     if(message.author.bot) return;
 
+    // check register user
+    try {
+      await registerUser(message.author);
+    } catch (err: any) {
+      throw new MessageError(message, err.message);
+    }
+
     // listen command message
     const prefix = process.env.PREFIX as string;
     if(message.content.startsWith(prefix)) {
       const args = message.content.slice(prefix.length).trim().split(' ');
       const commandName = args.shift();
-      
       const command: commandInterface | undefined = clientCommands.find((command: commandInterface) => commandName == command.name || command.aliases.includes(commandName as string));
 
       if(command) return command.run(message, args);
