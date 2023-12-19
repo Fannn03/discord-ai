@@ -3,6 +3,7 @@ moduleAlias.addAliases({
   "@common": __dirname + "/common",
   "@configs": __dirname + "/configs",
   "@domains": __dirname + "/domains",
+  "@services": __dirname + "/services"
 });
 
 import 'module-alias/register';

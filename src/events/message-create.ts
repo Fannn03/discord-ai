@@ -3,9 +3,9 @@ import { RateLimitError } from "openai";
 import { openAI } from "@configs/openai";
 import { eventInterface } from "@domains/models/event";
 import { MessageError } from "@common/adapters/errors/message-error";
-import { clientCommands } from "main";
+import { clientCommands } from "../main";
 import { commandInterface } from "@domains/models/command";
-import { registerUser } from "services/users/register-service";
+import { registerUser } from "@services/users/register-service";
 
 export default {
   name: 'messageCreate',

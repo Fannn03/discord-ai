@@ -1,6 +1,6 @@
 import { connectMongodb } from "@configs/mongodb";
 import { eventInterface } from "@domains/models/event";
-import { clientCommands } from "main";
+import { clientCommands } from "../main";
 
 export default {
   name: 'ready',

@@ -11,7 +11,8 @@
     "paths": {
       "@common/*": ["common/*"],
       "@configs/*": ["configs/*"],
-      "@domains/*": ["domains/*"]
+      "@domains/*": ["domains/*"],
+      "@services/*": ["services/*"]
     }
   },
   "ts-node": {
