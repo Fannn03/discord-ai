@@ -1,7 +1,7 @@
 export interface commandDefaultInterface {
   default: {
     name: string,
-    aliases: string[],
+    aliases: string[] | [],
     run: any
   }
 }

@@ -5,7 +5,7 @@ import { clientCommands } from "main";
 export default {
   name: 'ready',
   once: true,
-  execute: async function () {
+  execute: async function (): Promise<void> {
     try {
       await connectMongodb();
       console.log(`loaded ${clientCommands.length} commands`);
