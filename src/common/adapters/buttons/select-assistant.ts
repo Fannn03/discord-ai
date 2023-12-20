@@ -5,12 +5,12 @@ import { MessageError } from "../errors/message-error";
 
 export default {
   name: 'selectAssistant',
-  execute: async function (interaction: ButtonInteraction) {    
+  execute: async function (interaction: ButtonInteraction) {
+    await interaction.deferReply();
+
     const select = new StringSelectMenuBuilder()
       .setCustomId("selectAssistant")
       .setPlaceholder("Select your assistant")
-
-    await interaction.deferReply();
     
     const getAssistants = await findAllAssistant(interaction.user.id);
     if(!getAssistants.length) return new MessageError(interaction, "You dont have any assistant list!");
