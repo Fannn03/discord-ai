@@ -1,5 +1,5 @@
 import { model } from "@domains/schemas";
-import { createUserInterface } from "@domains/services/user";
+import { createUserInterface, updateUserInterface } from "@domains/services/user";
 
 const user = model.user;
 
@@ -17,4 +17,14 @@ export const findUser = async (id: string) => {
   return await user.findOne({
     id: id
   })
+}
+
+export const updateuser = async (data: updateUserInterface) => {
+  try {
+    await user.updateOne({ id: data.user_id }, {
+      assistant: data.assistant_id
+    })
+  } catch (err) {
+    throw err;
+  }
 }

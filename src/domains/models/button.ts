@@ -1,6 +1,8 @@
 export interface buttonDefaultInterface {
-  default: {
-    name: string,
-    execute: any
-  }
+  default: buttonInterface
+}
+
+export interface buttonInterface {
+  name: string,
+  execute: any
 }

@@ -1,8 +1,9 @@
 import { ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import { buttonInterface } from "@domains/models/button";
 
 export default {
   name: 'createAssistant',
-  execute: async function (interaction: ButtonInteraction) {
+  execute: async function (interaction: ButtonInteraction): Promise<void> {
     const modal = new ModalBuilder()
       .setCustomId('createAssistant')
       .setTitle("Create Assistant")
@@ -27,4 +28,4 @@ export default {
     modal.addComponents(firstActionRow, secondActionRow);
     return await interaction.showModal(modal);
   }
-}
+} as buttonInterface
