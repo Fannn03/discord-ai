@@ -25,13 +25,22 @@ export default {
       .setLabel("Create Assistant")
       .setStyle(ButtonStyle.Success)
     
+    const selectAssistant = new ButtonBuilder()
+      .setCustomId('selectAssistant')
+      .setLabel("Select Assistant")
+      .setStyle(ButtonStyle.Primary)
+
     const deleteAssistant = new ButtonBuilder()
       .setCustomId("deleteAssistant")
       .setLabel("Delete Assistant")
       .setStyle(ButtonStyle.Danger)
 
     const row = new ActionRowBuilder<ButtonBuilder>()
-      .addComponents(createAssistant, deleteAssistant)
+      .addComponents(
+        createAssistant,
+        selectAssistant,
+        deleteAssistant
+      )
     
     const button = await message.reply({
       embeds: [embed],
@@ -40,6 +49,7 @@ export default {
 
     return setTimeout(async () => {
       createAssistant.setDisabled(true);
+      selectAssistant.setDisabled(true);
       deleteAssistant.setDisabled(true);
 
       await button.edit({

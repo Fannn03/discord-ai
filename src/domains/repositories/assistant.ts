@@ -15,3 +15,7 @@ export const createAssistant = async (data: createAssistantInterface) => {
     throw err;
   }
 }
+
+export const findAllAssistant = async (userId: string) => {
+  return await assistant.find({ user_id: userId });
+}
