@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { EmbedBuilder, Message } from "discord.js";
 import { RateLimitError } from "openai";
 import { openAI } from "@configs/openai";
 import { eventInterface } from "@domains/models/event";
@@ -45,7 +45,14 @@ export default {
       })
 
       await message.channel.sendTyping();
-      return await message.reply(completion.choices[0].message.content as string);
+      return await message.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setColor("Green")
+            .setTitle(message.content)
+            .setDescription(completion.choices[0].message.content as string)
+        ]
+      });
     } catch (err: any) {
       if(err instanceof RateLimitError) {
         new MessageError(message, "Rate limit, try again later.");
