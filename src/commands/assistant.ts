@@ -1,17 +1,20 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, Message, bold, inlineCode } from "discord.js";
 import { commandInterface } from "@domains/models/command";
-import { findUser } from "@domains/repositories/user";
+import { findAssistant } from "@domains/repositories/assistant";
 
 export default {
   name: 'assistant',
   aliases: [],
   run: async function (message: Message, args: string[]) {
-    const getUser = await findUser(message.author.id);
-    const assistant = (getUser?.assistant) ? getUser.assistant : 'not set';
+    const getAssistant = await findAssistant(message.author.id);
+    const assistantId =(getAssistant?.assistant_id) ? getAssistant?.assistant_id : 'not set';
+    const assistantName = (getAssistant?.name) ? getAssistant.name : 'not set';
+    const assistantDesc = (getAssistant?.instructions) ? getAssistant.instructions : 'not set';
 
     let text = "";
-    text += `${bold('ID :')} ${inlineCode(getUser?.id)}\n`;
-    text += `${bold('Assistant :')} ${inlineCode(assistant)}`;
+    text += `${bold('ID :')} ${inlineCode(assistantId)}\n`;
+    text += `${bold('Name :')} ${inlineCode(assistantName)}\n`;
+    text += `${bold('Instructions :')} ${inlineCode(assistantDesc)}`;
 
     const embed = new EmbedBuilder()
       .setTitle("ChatAi Assistant")
