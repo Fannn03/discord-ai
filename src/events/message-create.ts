@@ -49,7 +49,6 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor("Green")
-            .setTitle(message.content)
             .setDescription(completion.choices[0].message.content as string)
         ]
       });
