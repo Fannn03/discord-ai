@@ -7,7 +7,6 @@ export default {
   name: 'selectAssistant',
   execute: async function (interaction: ButtonInteraction) {
     await interaction.deferReply();
-
     const select = new StringSelectMenuBuilder()
       .setCustomId("selectAssistant")
       .setPlaceholder("Select your assistant")
